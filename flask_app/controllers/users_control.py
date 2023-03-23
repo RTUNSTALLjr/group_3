@@ -3,7 +3,11 @@ from flask_app import app
 from flask_app.models import user, order, sub
 from flask_app.controllers import subs_control, orders_control
 
-@app.route('/login-register')
-def login_register():
-    return render_template('login_reg.html')
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
