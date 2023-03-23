@@ -1,4 +1,26 @@
 {% extends "./base.html" %}
 {% block base %}
-<h1></h1>
+<div id="dash_body" class="bg-body-secondary align-items-center d-flex flex-column">
+    <div class="text-center mt-1">
+        <h3 class="fs-3"><b>EAT LESS WITH <span class="text-success">SN</span><span class="text-warning">'OT</span></b></h3>
+        <p style="margin-top: -10px;" class="fs-6"><em>Seriously, you aren't getting this food</em></p>
+    </div>
+    <div class="d-flex flex-column align-items-center w-100">
+        <div style="background-color: rgb(177, 177, 177);" class="bg-tertiary p-3 border border-dark border-1 my-2 d-flex justify-content-evenly align-items-center gap-5 w-75">
+            <p class="w-50">Pic Goes Here</p>
+            <div class="w-50">
+                <p class="fs-1">Sign-Up for exclusive member benefits,<br> like 10% off every order!</p>
+                <a class="btn btn-warning w-50" href="/login-register">Sign-Up !</a>
+            </div>
+        </div>
+            <div style="background-color: rgb(177, 177, 177);" class="p-3 border border-dark border-1 my-2 d-flex justify-content-evenly align-items-center gap-5 w-75">
+                <p class="w-50">Pic Goes Here</p>
+                <div class="w-50">
+                    <p class="fs-1">Try Our New <br>SubSammich,<br> -insert name- Today!</p>
+                    <a class="btn btn-warning w-50" href="/menu">Order Now!</a>
+                </div>
+            </div>
+        <p><i>* Due to a nation-wide bread shortage, bread may be substituted for tortillas. Sandwiches may be presented as crunchwraps and subs as burritos.</i></p>
+    </div>
+</div>
 {% endblock base %}
