@@ -36,6 +36,24 @@ class Sub:
         return cls(results[0])
     
     @classmethod
+    def save_sub(cls,data):
+        query='''INSERT INTO subs(name,price,description,img_url,bread,protein,cheese,vegetables,sauce)
+                VALUES (%(name)s,%(price)s,%(description)s,%(img_url)s,%(bread)s,%(protein)s,%(cheese)s,%(vegetable)s,%(sauce)s)
+                '''
+        return connectToMySQL(db).query_db( query, data )
+    
+    @classmethod
     def update_sub(cls,data):
-        query="UPDATE subs SET name=%(name)s,price=%(price)s,description=%(description)s,img_url=%(img_url)s,bread=%(bread)s,protein=%(protein)s,cheese=%(cheese)s,vegetables=%(vegetable)s,sauce=%(sauce)s,updated_at= NOW "
-        return connectToMySQL(db).query_db(query,data) 
+        query='''UPDATE subs
+                SET name=%(name)s,
+                    price=%(price)s,
+                    description=%(description)s,
+                    img_url=%(img_url)s,
+                    bread=%(bread)s,
+                    protein=%(protein)s,
+                    cheese=%(cheese)s,
+                    vegetables=%(vegetable)s,
+                    sauce=%(sauce)s,
+                    updated_at= NOW
+                WHERE id = %(id)s'''
+        connectToMySQL(db).query_db(query,data) 
