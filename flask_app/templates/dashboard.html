@@ -1,11 +1,39 @@
 {% extends "./base.html" %}
 {% block base %}
-<div id="dash_body" class="bg-body-secondary align-items-center d-flex flex-column">
-    <div class="text-center mt-1">
+
+<div>
+    <div class="container my-5">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                <h1 class="display-4 fw-bold lh-1">Checkout our newest sub!</h1>
+                <p class="lead">This flatbread grilled cheese sandwich is the star of the show. A mouthwatering combination of 3 white cheeses, melted to perfection and lightly seasoned, blend perfectly with the sauteed spinach and sun-dried tomatoes. The asiago flatbread is toasted to perfection and buttered to ensure the perfect crispy and cheesy bite every time.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                    <a href="/menu" class="btn btn-outline-secondary btn-lg px-4">Menu</a>
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+                <img class="rounded-lg-3" src="../static/images/grilled_cheese.jpg" alt="" width="720">
+            </div>
+        </div>
+    </div>
+    
+    <div class="px-4 py-5 my-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="display-5 fw-bold">Become a Member</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Sign-Up for exclusive member benefits,<br> like 10% off every order!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-warning btn-lg px-4 gap-3">Sign-Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="text-center mt-1">
         <h3 class="fs-3"><b>EAT LESS WITH <span class="text-success">SN</span><span class="text-warning">'OT</span></b></h3>
         <p style="margin-top: -10px;" class="fs-6"><em>Seriously, you aren't getting this food</em></p>
-    </div>
-    <div class="d-flex flex-column align-items-center w-100">
+    </div> -->
+
+    <!-- <div class="d-flex flex-column align-items-center w-100">
         <div style="background-color: rgb(177, 177, 177);" class="bg-tertiary p-3 border border-dark border-1 my-2 d-flex justify-content-evenly align-items-center gap-5 w-75">
             <p class="w-50">Pic Goes Here</p>
             <div class="w-50">
@@ -21,7 +49,7 @@
                 </div>
             </div>
         <p><i>* Due to a nation-wide bread shortage, bread may be substituted for tortillas. Sandwiches may be presented as crunchwraps and subs as burritos.</i></p>
-    </div>
+    </div> -->
 </div>
 
 <!-- FOOTER -->
