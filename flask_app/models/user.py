@@ -74,22 +74,22 @@ class User:
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         is_valid = True
         if len(data['first_name']) < 3:
-            flash("First name must be at least 3 characters")
+            flash("First name must be at least 3 characters", "first_name")
             is_valid = False
         if len(data['last_name']) < 3:
-            flash("Last name must be at least 3 characters")
+            flash("Last name must be at least 3 characters", "last_name")
             is_valid = False
         if len(data['password']) < 8:
-            flash("Password must be at least 8 characters")
+            flash("Password must be at least 8 characters", "password")
             is_valid = False
         if not EMAIL_REGEX.match(data['email']):
-            flash('Invalid email format')
+            flash('Invalid email format', "email")
             is_valid = False
         if User.get_user_by_email(data['email']):
-            flash('Email is already in use')
+            flash('Email is already in use', "email")
             is_valid = False
         if data['password'] != data['confirm_password']:
-            flash('Passwords do not match')
+            flash('Passwords do not match', "confirm_password")
             is_valid = False
         return is_valid
 

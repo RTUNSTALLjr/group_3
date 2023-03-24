@@ -7,6 +7,14 @@
 .border-success { border-color: var(--success) !important; }
 
 
+/* BACKGROUND */
+.main-bg {
+    background-image: url("../images/bg.jpg");
+    background-repeat: repeat-x;
+    background-size: contain;
+}
+
+
 /* HERO */
 .bd-placeholder-img {
     font-size: 1.125rem;
