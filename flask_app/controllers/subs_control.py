@@ -17,8 +17,10 @@ def about():
 
 @app.route('/create_sub')
 def create_sub():
+    # add conditional check to protect route for sub shop owner
     return render_template('create_sub.html')
 
 @app.route('/edit_sub')
 def edit_sub():
+    # add conditional check to protect route for sub shop owner
     return render_template('edit_sub.html')

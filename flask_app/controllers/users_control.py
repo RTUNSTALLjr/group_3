@@ -3,14 +3,22 @@ from flask_app import app
 from flask_app.models import user, order, sub
 from flask_app.controllers import subs_control, orders_control
 
+
+# REGISTRATION
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
+
 @app.route('/customer/register', methods = ['POST'])
 def register_user():
         if user.User.create_user(request.form):
             return redirect('/')
         return redirect('/registration')
-@app.route('/registration')
-def registration():
-    return render_template('registration.html')
+
+# LOGIN
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 @app.route('/customer/login', methods=['POST'])
 def user_login():
@@ -18,7 +26,5 @@ def user_login():
         return redirect('/')
     return redirect('/login')
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
+
 
