@@ -12,7 +12,13 @@ def registration():
 @app.route('/customer/register', methods = ['POST'])
 def register_user():
         if user.User.create_user(request.form):
+            temp = session["user_id"]
+            session.clear()
+            session["user_id"] = temp
             return redirect('/')
+        session["first_name"] = request.form["first_name"]
+        session["last_name"] = request.form["last_name"]
+        session["email"] = request.form["email"]
         return redirect('/registration')
 
 # LOGIN
@@ -27,4 +33,8 @@ def user_login():
     return redirect('/login')
 
 
-
+# LOGOUT
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
