@@ -1,35 +1,42 @@
 {% extends "./base.html" %}
 {% block base %}
 
-    <form action="/customer/login" method="POST" class="w-25 p-3 rounded m-5 mx-auto" style="background-color: rgb(177, 177, 177);">
-        <p class="fs-3 text-center mt-3 mb-5">Customer Login</p>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="alert alert-danger" role="alert">
-            <strong>AHHHHHHH!!!!</strong>
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
+<div class="container col-xxl-8 px-4">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="../static/images/restaurant.jpg" class="d-block mx-lg-auto img-fluid shadow" alt="The Restaurant" width="700" height="500" loading="lazy">
         </div>
-        {% endif %}
-    {% endwith %}
-        <div class="w-75 mx-auto">
-            <div class="mb-3">
-                <label class="form-label" for="">Email</label>
-                <input class="form-control" type="text" name="email">
+        <form action="/customer/login" method="POST" class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-5">Customer Login</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>AHHHHHHH!!!!</strong>
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <div class="lead w-75">
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" type="text" name="email">
+                </div>
+                <div>
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-control" type="password" name="password">
+                </div>
+                <div class="d-flex align-items-center flex-column">
+                    <button class="btn btn-warning mt-4 mb-2" type="submit">Login</button>
+                    <p class="mb-5">Don't have an account? <a href="/registration">Register</a></p>
+                </div>
             </div>
-            <div>
-                <label class="form-label" for="">Password</label>
-                <input class="form-control" type="password" name="password">
-            </div>
-            <div class="d-flex align-items-center flex-column">
-                <button class="btn btn-warning mt-4 mb-2" type="submit">Login</button>
-                <p class="mb-5">Don't have an account? <a href="/registration">Register</a></p>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
+</div>
 
 <!-- FOOTER -->
-<div class="bg-success border-top border-warning border-3" style="width: 100%; height: 50px; position: absolute; bottom: 0px;"></div>
+<div class="bg-success border-top border-warning border-3" style="width: 100%; height: 50px;"></div>
 
 {% endblock base %}
