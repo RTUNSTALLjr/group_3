@@ -17,25 +17,67 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            {% for each in session["sub_list"] %}
-                <p>{{each['name']}} {{each['quantity']}} {{"$%.2f"|format(each['price'] * each['quantity'])}}</p>
-            {% endfor %}
-            <p>-----------------------</p>
-            <p>Total: </p>
-            {% if "subtotal" in session %}
-                {% if "user_id" in session %}
-                    <p>{{ "$%.2f"|format(session["subtotal"] - (session["subtotal"] / 10)) }}</p>
-                    <p class="alert alert-success mt-2">10% discount applied!</p>
-                {% else %}
-                    <p>{{ "$%.2f"|format(session["subtotal"]) }}</p>
-                {% endif %}
-            {% endif %}
-            {% if "user_id" not in session %}
-                <div class="alert alert-warning alert-dismissible fade show w-75 mx-auto" role="alert">
-                    <p class="text-center"><a href="/login" class="link-center">Login</a> or <a href="/registration">Register</a> for exclusive member benefits, like <span class="fw-bold">10% off every order! </span></p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endif %}
+            <div class="d-flex align-items-between flex-column">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="w-50">Sub</th>
+                            <th class="w-25">Qty</th>
+                            <th class="w-25">Price</th>
+                            <th>X</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for each in session["sub_list"] %}
+                            <tr>
+                                <td>{{each['name']}}</td>
+                                <td>{{each['quantity']}}</td>
+                                <td>{{"$%.2f"|format(each['price'] * each['quantity'])}}</td>
+                                <td>
+                                    <a href="" class="text-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <td class="fw-bold">TOTAL</td>
+                            <td>
+                                {% if "subtotal" in session %}
+                                    {% if "user_id" in session %}
+                                        <p>{{ "$%.2f"|format(session["subtotal"] - (session["subtotal"] / 10)) }}</p>
+                                        <p class="alert alert-success">10% discount applied!</p>
+                                    {% else %}
+                                        <p>{{ "$%.2f"|format(session["subtotal"]) }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>    
+
+                    <!-- <p>Total: </p>
+                    {% if "subtotal" in session %}
+                        {% if "user_id" in session %}
+                            <p>{{ "$%.2f"|format(session["subtotal"] - (session["subtotal"] / 10)) }}</p>
+                            <p class="alert alert-success">10% discount applied!</p>
+                        {% else %}
+                            <p>{{ "$%.2f"|format(session["subtotal"]) }}</p>
+                        {% endif %}
+                    {% endif %} -->
+                    {% if "user_id" not in session %}
+                        <div class="alert alert-warning alert-dismissible fade show w-75 mx-auto" role="alert">
+                            <p class="text-center"><a href="/login" class="link-center">Login</a> or <a href="/registration">Register</a> for exclusive member benefits, like <span class="fw-bold">10% off every order! </span></p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                </div>  
+            </div>
         </div>
     </div>
 </div>
@@ -43,9 +85,9 @@
 <div class="mx-auto w-25">
     {% with messages = get_flashed_messages(category_filter = ["sub"]) %}
         {% if messages %}
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success text-center" role="alert">
                 {% for message in messages %}
-                    <p>{{message}}</p>
+                    {{message}}
                 {% endfor %}
             </div>
         {% endif %}
