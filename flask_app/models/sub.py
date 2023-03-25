@@ -10,7 +10,8 @@ class Sub:
         self.id = data['id']
         self.name = data['name']
         self.price = data['price']
-        self.description=data['description']
+        self.brief_description=data['brief_description']
+        self.full_description=data['full_description']
         self.img_url=data['img_url']
         self.bread=data['bread']
         self.protein=data['protein']
@@ -26,9 +27,13 @@ class Sub:
         result= connectToMySQL(db).query_db(query,data)
 
     @classmethod
-    def get_all_subs(cls,data):
+    def get_all_subs(cls):
         query ="SELECT * FROM subs"
-        result = connectToMySQL(db).query_db(query,data)
+        results = connectToMySQL(db).query_db(query)
+        sub_list = []
+        for row in results:
+            sub_list.append(cls(row))
+        return sub_list
     
     @classmethod
     def get_sub_by_id(cls,data):
@@ -38,9 +43,10 @@ class Sub:
     
     @classmethod
     def save_sub(cls,data):
-        query='''INSERT INTO subs(name,price,description,img_url,bread,protein,cheese,vegetables,sauce)
-                VALUES (%(name)s,%(price)s,%(description)s,%(img_url)s,%(bread)s,%(protein)s,%(cheese)s,%(vegetable)s,%(sauce)s)
-                '''
+        query='''
+            INSERT INTO subs(name,price,brief_description, full_description,bread,protein,cheese,vegetables,sauce)
+            VALUES (%(name)s,%(price)s,%(brief_description)s,%(full_description)s,%(bread)s,%(protein)s,%(cheese)s,%(vegetables)s,%(sauce)s)
+        '''
         return connectToMySQL(db).query_db( query, data )
     
     @classmethod

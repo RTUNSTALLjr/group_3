@@ -15,8 +15,14 @@ def registration():
 def register_user():
         if user.User.create_user(request.form):
             temp = session["user_id"]
+            save_sub_list = session["sub_list"]
+            save_subtotal = session["subtotal"]
             session.clear()
             session["user_id"] = temp
+            session["sub_list"] = save_sub_list
+            session["subtotal"] = save_subtotal
+            if len(session["sub_list"]) > 0:
+                return redirect('/menu')
             return redirect('/')
         session["first_name"] = request.form["first_name"]
         session["last_name"] = request.form["last_name"]
@@ -33,6 +39,8 @@ def login():
 @app.route('/customer/login', methods=['POST'])
 def user_login():
     if user.User.user_login(request.form):
+        if "sub_list" in session and len(session["sub_list"]) > 0:
+                return redirect('/menu')
         return redirect('/')
     return redirect('/login')
 

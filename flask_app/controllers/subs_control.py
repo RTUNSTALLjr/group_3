@@ -12,11 +12,10 @@ def dashboard():
 
 @app.route('/menu')
 def menu():
-    if "user_id" in session:
-        menu_list = sub.Sub.get_all_subs()
-        user_info = user.User.get_user_by_id({'id' : session['user_id']})
-        return render_template('menu.html', user = user_info, menu = menu_list)
     menu_list = sub.Sub.get_all_subs()
+    # if "user_id" in session:
+    #     user_info = user.User.get_user_by_id({'id' : session['user_id']})
+    #     return render_template('menu.html', user = user_info, menu = menu_list)
     return render_template('menu.html', menu = menu_list)
 
 @app.route('/about')
