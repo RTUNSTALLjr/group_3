@@ -1,7 +1,8 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app.models import user
-
+import re
+number_regex = re.compile(r'^[0-9]\d*(.\d+)?$')
 db = "sub_shop"
 
 class Sub:
@@ -57,3 +58,38 @@ class Sub:
                     updated_at= NOW
                 WHERE id = %(id)s'''
         connectToMySQL(db).query_db(query,data) 
+
+    @staticmethod
+    def validate_sub(data):
+        is_valid = True
+        if len(data['name']) < 3:
+            flash("Name must be at least 3 characters", "name")
+            is_valid = False
+        if not number_regex.match(data['price']):
+            flash("Invalid price", "price")
+            is_valid = False
+        if len(data['brief_description']) < 1:
+            flash("Description Required", "brief_description")
+            is_valid = False
+        if len(data['full_description']) < 1:
+            flash("Description Required", "full_description")
+            is_valid = False
+        # if len(data['img_url']) < 8:
+        #     flash("img required", "password")
+        #     is_valid = False
+        if len(data['bread']) < 1:
+            flash("Bread Required", "bread")
+            is_valid = False
+        if len(data['protein']) < 1:
+            flash("Invalid 2 characters required", "protein")
+            is_valid = False
+        if len(data['cheese']) < 1:
+            flash("Invalid 2 characters required", "cheese")
+            is_valid = False
+        if len(data['vegetables']) < 1:
+            flash("Invalid 2 characters required", "vegetables")
+            is_valid = False
+        if len(data['sauce']) < 1:
+            flash("Invalid 2 characters required", "sauce")
+            is_valid = False
+        return is_valid

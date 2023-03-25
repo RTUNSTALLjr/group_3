@@ -3,25 +3,47 @@
 
 <div class="container rounded w-50 my-5 p-4">
     <h1 class="text-center text-success mb-5">New Sub</h1>
-    <form action="">
+    <form action="/insert_sub" method="POST">
         <div class="d-flex justify-content-between mt-5 border-success border-bottom">
             <p class="fs-3 text-success">General Info</p>
             <div class="d-flex gap-3 h-75">
                 <a href="/menu" class="btn btn-secondary ">Cancel</a>
-                <a href="" class="btn btn-warning">Save</a>
+                <input type="submit" class="btn btn-warning" value="Save">
             </div>
         </div>
         <div class="d-flex justify-content-between gap-5 mt-4">
             <div class="w-50">
                 <div class="mb-3">
                     <label for="" class="form-label">Sub Name</label>
-                    <input type="text" name="" class="form-control">
+                    {% if "name" in session %}
+                    <input type="text" name="name" class="form-control" value="{{session['name']}}">
+                    {% else %}
+                    <input type="text" name="name" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["name"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
-                <label for="" class="form-label">Price</label>
+                <label for="price" class="form-label">Price</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
-                    <input type="number" step="0.01" name="" class="form-control">
+                    <input type="number" step="0.01" name="price" class="form-control">
                 </div>
+                {% with messages = get_flashed_messages(category_filter = ["price"]) %}
+                    {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endwith %}
             </div>
             <div class="w-50">
                 <label for="" class="form-label">Sub Image</label>
@@ -31,38 +53,131 @@
         <p class="fs-3 text-success border-success border-bottom mt-3">Description</p>
         <div class="mb-3">
             <div class="mb-3">
-                <label for="" class="form-label">Brief</label>
-            <textarea name="" cols="30" rows="2" class="form-control" placeholder="This will be visible on the menu page, when customers click the 'info' pop up."></textarea>
+                <label for="brief_description" class="form-label">Brief</label>
+                {% if "brief_description" in session %}
+                <textarea name="brief_description" cols="30" rows="2" class="form-control">{{session['brief_description']}}</textarea>
+                {% else %}
+                <textarea name="brief_description" cols="30" rows="2" class="form-control" placeholder="This will be visible on the menu page, when customers click the 'info' pop up."></textarea>
+                {% endif %}
+                {% with messages = get_flashed_messages(category_filter = ["brief_description"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
             </div>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">Full Description</label>
-            <textarea name="" cols="30" rows="6" class="form-control" placeholder="This will display on the home page as the product feature blurb."></textarea>
+            <label for="full_description" class="form-label">Full Description</label>
+            {% if "full_description" in session %}
+            <textarea name="full_description" cols="30" rows="6" class="form-control">{{session['full_description']}}</textarea>
+            {% else %}
+            <textarea name="full_description" cols="30" rows="6" class="form-control" placeholder="This will display on the home page as the product feature blurb."></textarea>
+            {% endif %}
+            {% with messages = get_flashed_messages(category_filter = ["full_description"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
         </div>
         <p class="fs-3 text-success border-success border-bottom mt-3">Ingredients</p>
         <div class="d-flex justify-content-between gap-5 mt-4">
             <div class="w-50">
                 <div class="mb-3">
-                    <label for="" class="form-label">Bread</label>
-                    <input type="text" name="" class="form-control">
+                    <label for="bread" class="form-label">Bread</label>
+                    {% if "bread" in session %}
+                    <input type="text" name="bread" class="form-control" value="{{session['bread']}}">
+                    {% else %}
+                    <input type="text" name="bread" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["bread"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
+                
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Cheese</label>
-                    <input type="text" name="" class="form-control">
+                    <label for="cheese" class="form-label">Cheese</label>
+                    {% if "cheese" in session %}
+                    <input type="text" name="cheese" value="{{session['cheese']}}" class="form-control">
+                    {% else %}
+                    <input type="text" name="cheese" placeholder="None" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["cheese"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Sauce</label>
-                    <input type="text" name="" class="form-control">
+                    <label for="sauce" class="form-label">Sauce</label>
+                    {% if "sauce" in session %}
+                    <input type="text" name="sauce" value="{{session['sauce']}}" class="form-control">
+                    {% else %}
+                    <input type="text" name="sauce" placeholder="None" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["sauce"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
+
                 </div>
             </div>
             <div class="w-50">
                 <div class="mb-3">
-                    <label for="" class="form-label">Protein</label>
-                    <input type="text" name="" class="form-control">
+                    <label for="protein" class="form-label">Protein</label>
+                    {% if "protein" in session %}
+                    <input type="text" name="protein" value="{{session['protein']}}" class="form-control">
+                    {% else %}
+                    <input type="text" name="protein" placeholder="None" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["protein"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Vegetables</label>
-                    <input type="text" name="" class="form-control">
+                    <label for="vegetables" class="form-label">Vegetables</label>
+                    {% if "vegetables" in session %}
+                    <input type="text" name="vegetables" value="{{session['vegetables']}}" class="form-control">
+                    {% else %}
+                    <input type="text" name="vegetables" placeholder="None" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["vegetables"]) %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
