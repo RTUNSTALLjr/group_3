@@ -7,6 +7,8 @@ from flask_app.controllers import subs_control, orders_control
 # REGISTRATION
 @app.route('/registration')
 def registration():
+    if "user_id" in session:
+        return redirect('/')
     return render_template('registration.html')
 
 @app.route('/customer/register', methods = ['POST'])
@@ -24,6 +26,8 @@ def register_user():
 # LOGIN
 @app.route('/login')
 def login():
+    if "user_id" in session:
+        return redirect('/')
     return render_template('login.html')
 
 @app.route('/customer/login', methods=['POST'])
