@@ -39,10 +39,14 @@ class User:
 
     @classmethod
     def get_user_by_email(cls,data):
-        query = "SELECT email FROM users WHERE email = %(email)s;"
+        query = '''
+            SELECT * 
+            FROM users 
+            WHERE email = %(email)s;
+        '''
         result = connectToMySQL(db).query_db(query,data)
         if result:
-            result = cls(result[0])
+            return cls(result[0])
         return result
     
     @classmethod
@@ -106,7 +110,7 @@ class User:
 # login validation
     @staticmethod
     def user_login(data):
-        this_user = User.get_user_by_email(data['email'])
+        this_user = User.get_user_by_email(data)
         if this_user:
             if bcrypt.check_password_hash(this_user.password, data['password']):
                 session['user_id'] = this_user.id
