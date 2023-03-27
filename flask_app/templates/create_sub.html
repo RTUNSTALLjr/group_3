@@ -3,7 +3,7 @@
 
 <div class="container rounded w-50 my-5 p-4">
     <h1 class="text-center text-success mb-5">New Sub</h1>
-    <form action="/insert_sub" method="POST">
+    <form action="/insert_sub" method="POST" enctype="multipart/form-data">
         <p class="fs-3 text-success mt-5 border-success border-bottom">General Info</p>
         <div class="d-flex justify-content-between gap-5 mt-4">
             <div class="w-50">
@@ -40,8 +40,14 @@
                 {% endwith %}
             </div>
             <div class="w-50">
-                <label for="" class="form-label">Sub Image</label>
-                <input type="file" name="">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Sub Image</label>
+                    <input type="file" name="image" id="file-upload" accept="*.gif, *.jpg, *.png" class="form-control" required>
+                </div>
+                <div class="mb-3 w-50 d-none" id="file-preview-area"> 
+                    <p>Image Preview</p>
+                    <img class="file-preview" id="file-preview">
+                </div>
             </div>
         </div>
         <p class="fs-3 text-success border-success border-bottom mt-3">Description</p>
@@ -185,4 +191,6 @@
 
 <!-- FOOTER -->
 <div class="bg-success border-top border-warning border-3" style="width: 100%; height: 50px;"></div>
+
+<script src="../static/js/script.js"></script>
 {% endblock base %}

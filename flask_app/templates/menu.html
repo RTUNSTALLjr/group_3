@@ -60,16 +60,6 @@
                             </td>
                         </tr>
                     </table>    
-
-                    <!-- <p>Total: </p>
-                    {% if "subtotal" in session %}
-                        {% if "user_id" in session %}
-                            <p>{{ "$%.2f"|format(session["subtotal"] - (session["subtotal"] / 10)) }}</p>
-                            <p class="alert alert-success">10% discount applied!</p>
-                        {% else %}
-                            <p>{{ "$%.2f"|format(session["subtotal"]) }}</p>
-                        {% endif %}
-                    {% endif %} -->
                     {% if "user_id" not in session %}
                         <div class="alert alert-warning alert-dismissible fade show w-75 mx-auto" role="alert">
                             <p class="text-center"><a href="/login" class="link-center">Login</a> or <a href="/registration">Register</a> for exclusive member benefits, like <span class="fw-bold">10% off every order! </span></p>
@@ -98,7 +88,7 @@
     <!-- SUBS -->
     <div class="container row row-cols-1 gap-4 my-4">
         <div class="card" style="width: 18rem;">
-            <img src="../static/images/spicy_chicken.jpg" class="card-img-top mt-2 shadow" alt="Sandwich">
+            <img src={{sub.img_url}} class="card-img-top mt-2 shadow" alt="Sandwich" style="width: 17rem; height: 21rem;">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">{{sub.name}}</h5>

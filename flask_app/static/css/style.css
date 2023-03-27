@@ -64,6 +64,11 @@
     .rounded-lg-3 { border-radius: .3rem; }
 }
 
+
+.file-preview {
+    width: 15rem;
+}
+
 @media (max-width: 900px) {
     .sub-flex { flex-wrap: wrap; }
 }

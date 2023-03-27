@@ -1,4 +1,4 @@
 # __init__.py
 from flask import Flask
 app = Flask(__name__)
-app.secret_key = "mysubisbiggerthanyours"
+app.secret_key = "mysubisbiggerthanyours1A!"

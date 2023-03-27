@@ -44,8 +44,8 @@ class Sub:
     @classmethod
     def save_sub(cls,data):
         query='''
-            INSERT INTO subs(name,price,brief_description, full_description,bread,protein,cheese,vegetables,sauce)
-            VALUES (%(name)s,%(price)s,%(brief_description)s,%(full_description)s,%(bread)s,%(protein)s,%(cheese)s,%(vegetables)s,%(sauce)s)
+            INSERT INTO subs (name, price, brief_description, full_description, img_url, bread, protein, cheese, vegetables, sauce)
+            VALUES (%(name)s, %(price)s, %(brief_description)s, %(full_description)s, %(img_url)s, %(bread)s, %(protein)s, %(cheese)s, %(vegetables)s, %(sauce)s)
         '''
         return connectToMySQL(db).query_db( query, data )
     
@@ -80,9 +80,6 @@ class Sub:
         if len(data['full_description']) < 1:
             flash("Description Required", "full_description")
             is_valid = False
-        # if len(data['img_url']) < 8:
-        #     flash("img required", "password")
-        #     is_valid = False
         if len(data['bread']) < 1:
             flash("Bread Required", "bread")
             is_valid = False
