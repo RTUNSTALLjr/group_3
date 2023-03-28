@@ -23,12 +23,12 @@ class Sub:
 
     @classmethod
     def delete_sub(cls,data):
-        query ="DELETE FROM subs WHERE id =%(id)s"
-        result= connectToMySQL(db).query_db(query,data)
+        query = "DELETE FROM subs WHERE id =%(id)s;"
+        connectToMySQL(db).query_db(query,data)
 
     @classmethod
     def get_all_subs(cls):
-        query ="SELECT * FROM subs"
+        query = "SELECT * FROM subs;"
         results = connectToMySQL(db).query_db(query)
         sub_list = []
         for row in results:
@@ -37,21 +37,21 @@ class Sub:
     
     @classmethod
     def get_sub_by_id(cls,data):
-        query = "SELECT * FROM subs WHERE id =%(id)s"
+        query = "SELECT * FROM subs WHERE id =%(id)s;"
         results = connectToMySQL(db).query_db(query,data)
         return cls(results[0])
     
     @classmethod
     def save_sub(cls,data):
-        query='''
+        query = '''
             INSERT INTO subs (name, price, brief_description, full_description, img_url, bread, protein, cheese, vegetables, sauce)
-            VALUES (%(name)s, %(price)s, %(brief_description)s, %(full_description)s, %(img_url)s, %(bread)s, %(protein)s, %(cheese)s, %(vegetables)s, %(sauce)s)
+            VALUES (%(name)s, %(price)s, %(brief_description)s, %(full_description)s, %(img_url)s, %(bread)s, %(protein)s, %(cheese)s, %(vegetables)s, %(sauce)s);
         '''
         return connectToMySQL(db).query_db( query, data )
     
     @classmethod
     def update_sub(cls,data):
-        query='''UPDATE subs
+        query = '''UPDATE subs
                 SET name=%(name)s,
                     price=%(price)s,
                     description=%(description)s,
@@ -62,7 +62,7 @@ class Sub:
                     vegetables=%(vegetable)s,
                     sauce=%(sauce)s,
                     updated_at= NOW
-                WHERE id = %(id)s'''
+                WHERE id = %(id)s;'''
         connectToMySQL(db).query_db(query,data) 
 
     @staticmethod

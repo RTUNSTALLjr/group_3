@@ -13,6 +13,10 @@
     background-repeat: repeat-x;
     background-size: contain;
 }
+.logo {
+    -webkit-text-stroke-width: 5px;
+    -webkit-text-stroke-color: #FFC107;
+}
 
 
 /* HERO */
@@ -69,6 +73,6 @@
     width: 15rem;
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
     .sub-flex { flex-wrap: wrap; }
-}
+} */
