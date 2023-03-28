@@ -41,12 +41,45 @@ def add_sub(name, price):
     flash(f"{sub_data['name']} added!", "sub")
     return redirect("/menu")
 
+@app.route('/remove/<name>/<page>')
+def remove_from_cart(name, page):
+    banana = session['sub_list']
+    for i in range(len(session['sub_list'])):
+        if session['sub_list'][i]['name'] == name:
+            banana.pop(i)
+            break
+    session['sub_list'] = banana
+    subtotal = 0
+    for each in banana:
+        subtotal += (each["price"] * each["quantity"])
+    session["subtotal"] = subtotal
+    if page == 'menu':
+        return redirect('/menu')
+    return redirect('/cart')
+
 @app.route('/cart')
 def cart():
+    if "user_id" in session:
+        user_info = user.User.get_user_by_id({'id': session['user_id']})
+        pu_time = datetime.now() + timedelta(minutes=20)
+        current_time = pu_time.strftime("%H:%M")
+        return render_template('checkout.html', time=current_time, user = user_info)
     pu_time = datetime.now() + timedelta(minutes=20)
     current_time = pu_time.strftime("%H:%M")
     return render_template('checkout.html', time=current_time)
     
+
+@app.route('/create_order', methods=['POST'])
+def create_order():
+    order_data = {
+        'price' : session['subtotal'],
+        'pickup_time' : request.form['pickup_time'],
+        'status' : 'pending',
+        
+    }
+    if 'user_id' in session:
+        order_data['user_id'] = session["user_id"]
+    return redirect('/confirmation')
 
 @app.route('/confirmation')
 def order_confirm():

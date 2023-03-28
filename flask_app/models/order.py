@@ -65,3 +65,9 @@ class Order_Items:
             order_items_list.append(order_items_object)
         order_object.order_items = order_items_list
         return order_object
+    
+    @classmethod
+    def insert_order(data):
+        query = """
+        
+        ;"""
