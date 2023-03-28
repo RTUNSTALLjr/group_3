@@ -27,9 +27,6 @@ def menu():
 
 @app.route('/about')
 def about():
-    if "user_id" in session:
-        user_info = user.User.get_user_by_id({'id' : session['user_id']})
-        return render_template('about.html', user = user_info)
     return render_template('about.html')
 
 @app.route('/insert_sub', methods=['POST'])
@@ -94,7 +91,6 @@ def edit_sub(id):
 def update_sub(id):
     if sub.Sub.validate_sub(request.form):
         uploaded_img = request.files['image']
-
         name = request.form["name"]
         sub_data = {
             "id": id,
