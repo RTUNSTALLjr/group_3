@@ -85,8 +85,55 @@ def create_sub():
 @app.route('/edit_sub/<int:id>')
 def edit_sub(id):
     if "user_id" in session and session['user_id'] == 1:
-        user_info = user.User.get_user_by_id({'id' : session['user_id']})
         sub_info = sub.Sub.get_sub_by_id({'id' : id})
-        return render_template('edit_sub.html', user = user_info, sub = sub_info)
+        return render_template('edit_sub.html', sub = sub_info)
     # change line 70 to redirect
     return render_template('edit_sub.html')
+
+@app.route('/update_sub/<int:id>', methods=["POST"])
+def update_sub(id):
+    if sub.Sub.validate_sub(request.form):
+        uploaded_img = request.files['image']
+
+        name = request.form["name"]
+        sub_data = {
+            "id": id,
+            "name": name.replace(" ",""),
+            "price": request.form["price"],
+            "brief_description": request.form["brief_description"],
+            "full_description": request.form["full_description"],
+            "bread": request.form["bread"],
+            "protein": request.form["protein"],
+            "cheese": request.form["cheese"],
+            "vegetables": request.form["vegetables"],
+            "sauce": request.form["sauce"]
+        }
+
+        cloudinary.uploader.upload(uploaded_img, public_id=sub_data["name"], unique_filename=False, overwrite=True)
+        srcURL = cloudinary.CloudinaryImage(sub_data["name"]).build_url()
+
+        sub_data["img_url"] = srcURL
+        sub.Sub.update_sub(sub_data)
+
+        temp = session["user_id"]
+        session.clear()
+        session["user_id"] = temp
+        return redirect('/menu')
+    else :
+        session["name"] = request.form["name"]
+        session["price"] = request.form["price"]
+        session["brief_description"] = request.form["brief_description"]
+        session["full_description"] = request.form["full_description"]
+        session["bread"] = request.form["bread"]
+        session["protein"] = request.form["protein"]
+        session["cheese"] = request.form["cheese"]
+        session["vegetables"] = request.form["vegetables"]
+        session["sauce"] = request.form["sauce"]
+        return redirect(f'/edit_sub/{id}')
+    
+@app.route("/delete_sub/<int:id>")
+def delete_sub(id):
+    if "user_id" in session and session['user_id'] == 1:
+        sub.Sub.delete_sub({"id": id})
+        return redirect("/menu")
+    return redirect("/")

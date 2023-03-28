@@ -2,6 +2,7 @@ from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models import user, order, sub
 from flask_app.controllers import subs_control, users_control
+from datetime import datetime, timedelta
 
 
 @app.route("/sub_add/<name>/<float:price>", methods=["POST"])
@@ -42,7 +43,10 @@ def add_sub(name, price):
 
 @app.route('/cart')
 def cart():
-    return render_template('checkout.html')
+    pu_time = datetime.now() + timedelta(minutes=20)
+    current_time = pu_time.strftime("%H:%M")
+    return render_template('checkout.html', time=current_time)
+    
 
 @app.route('/confirmation')
 def order_confirm():

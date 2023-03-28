@@ -51,18 +51,20 @@ class Sub:
     
     @classmethod
     def update_sub(cls,data):
-        query = '''UPDATE subs
-                SET name=%(name)s,
-                    price=%(price)s,
-                    description=%(description)s,
-                    img_url=%(img_url)s,
-                    bread=%(bread)s,
-                    protein=%(protein)s,
-                    cheese=%(cheese)s,
-                    vegetables=%(vegetable)s,
-                    sauce=%(sauce)s,
-                    updated_at= NOW
-                WHERE id = %(id)s;'''
+        query = '''
+            UPDATE subs
+            SET name = %(name)s,
+                price = %(price)s,
+                brief_description = %(brief_description)s,
+                full_description = %(full_description)s,
+                img_url = %(img_url)s,
+                bread = %(bread)s,
+                protein = %(protein)s,
+                cheese = %(cheese)s,
+                vegetables = %(vegetables)s,
+                sauce = %(sauce)s
+            WHERE id = %(id)s;
+        '''
         connectToMySQL(db).query_db(query,data) 
 
     @staticmethod
