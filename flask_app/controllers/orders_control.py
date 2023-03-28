@@ -92,9 +92,10 @@ def create_order():
         }
         order_item.Order_Items.insert_order_items(order_items_data)
 
-    temp = session["user_id"]
-    session.clear()
-    session["user_id"] = temp
+    if 'user_id' in session:
+        temp = session["user_id"]
+        session.clear()
+        session["user_id"] = temp
     return redirect(f'/confirmation/{order_id}')
 
 @app.route('/confirmation/<order_id>')
