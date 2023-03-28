@@ -1,8 +1,10 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from flask_app.models import user,sub
+from flask_app.models import user,sub, order_item
 
 db = 'sub_shop'
+
+
 class Orders:
     def __init__(self,data):
         self.id = data['id']
@@ -13,30 +15,22 @@ class Orders:
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
         self.order_items = []
-class Order_Items:
-    def __init__(self,data):
-        self.id = data['id']
-        self.quantity = data['quantity']
-        self.sub_id = data['sub_id']
-        self.order_id = data['order_id']
-        self.sub = None
 
     @classmethod
     def get_all_orders(cls,data):
         query = "SELECT * FROM orders;"
         return connectToMySQL(db).query_db(query,data)
 
-
     @classmethod
     def get_order_by_id(cls,data):
         query = """
-        SELECT * FROM orders O 
-        LEFT JOIN order_items OI ON O.id = OI.order_id
-        LEFT JOIN subs S ON OI.sub_id = S.id
-        WHERE O.id = %(id)s;
+            SELECT * FROM orders O 
+            LEFT JOIN order_items OI ON O.id = OI.order_id
+            LEFT JOIN subs S ON OI.sub_id = S.id
+            WHERE O.id = %(id)s;
         """
         results= connectToMySQL(db).query_db(query,data)
-        order_object =  Orders (results[0])
+        order_object =  cls(results[0])
         order_items_list = []
         for row in results:
             order_items_data ={
@@ -45,12 +39,13 @@ class Order_Items:
                 "sub_id" : row['sub_id'],
                 "order_id" :row['order_id']
             }
-            order_items_object = Order_Items(order_items_data)
+            order_items_object = order_item.Order_Items(order_items_data)
             sub_data={
                 "id" :row['S.id'],
                 "name":row['name'],
-                "price" :row['price'],
-                "description":row['description'],
+                "price" :row['S.price'],
+                "brief_description":row['brief_description'],
+                "full_description":row['full_description'],
                 "img_url":row['img_url'],
                 "bread":row['bread'],
                 "protein":row['protein'],
@@ -67,7 +62,9 @@ class Order_Items:
         return order_object
     
     @classmethod
-    def insert_order(data):
-        query = """
-        
-        ;"""
+    def insert_order(query, data):
+        query = '''
+            INSERT INTO orders (price, pickup_time, status, user_id)
+            VALUES (%(price)s, %(pickup_time)s, %(status)s, %(user_id)s);
+        '''
+        return connectToMySQL(db).query_db(query, data)

@@ -74,18 +74,15 @@ def insert_sub():
 @app.route('/create_sub')
 def create_sub():
     if "user_id" in session and session['user_id'] == 1:
-        user_info = user.User.get_user_by_id({'id' : session['user_id']})
-        return render_template('create_sub.html', user = user_info)
-    # Change line 59 to redirect
-    return render_template('create_sub.html')
+        return render_template('create_sub.html')
+    return redirect('/')
 
 @app.route('/edit_sub/<int:id>')
 def edit_sub(id):
     if "user_id" in session and session['user_id'] == 1:
         sub_info = sub.Sub.get_sub_by_id({'id' : id})
         return render_template('edit_sub.html', sub = sub_info)
-    # change line 70 to redirect
-    return render_template('edit_sub.html')
+    return redirect("/")
 
 @app.route('/update_sub/<int:id>', methods=["POST"])
 def update_sub(id):

@@ -1,12 +1,12 @@
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
-from flask_app.models import user, order, sub
+from flask_app.models import user, order, sub, order_item
 from flask_app.controllers import subs_control, users_control
 from datetime import datetime, timedelta
 
 
-@app.route("/sub_add/<name>/<float:price>", methods=["POST"])
-def add_sub(name, price):
+@app.route("/sub_add/<name>/<float:price>/<int:id>", methods=["POST"])
+def add_sub(name, price, id):
     # check if first time adding to sub_list
     if "sub_list" not in session:
         sub_list = []
@@ -16,6 +16,7 @@ def add_sub(name, price):
     
     # create data dict with sub info
     sub_data = {
+        "id": id,
         "name": name,
         "price": price,
         "quantity": int(request.form["quantity"])
@@ -75,12 +76,33 @@ def create_order():
         'price' : session['subtotal'],
         'pickup_time' : request.form['pickup_time'],
         'status' : 'pending',
-        
+        'user_id': None
     }
     if 'user_id' in session:
         order_data['user_id'] = session["user_id"]
-    return redirect('/confirmation')
+    
+    order_id = order.Orders.insert_order(order_data)
+    order_data["order_id"] = order_id
 
-@app.route('/confirmation')
-def order_confirm():
-    return render_template('order_confirm.html')
+    for each in session["sub_list"]:
+        order_items_data = {
+            "quantity": each["quantity"],
+            "sub_id": each["id"],
+            "order_id": order_id
+        }
+        order_item.Order_Items.insert_order_items(order_items_data)
+
+    temp = session["user_id"]
+    session.clear()
+    session["user_id"] = temp
+    return redirect(f'/confirmation/{order_id}')
+
+@app.route('/confirmation/<order_id>')
+def order_confirm(order_id):
+    order_info = order.Orders.get_order_by_id({"id": order_id})
+
+    pu_time = str(order_info.pickup_time)
+    pu_time_obj = datetime.strptime(pu_time, "%H:%M:%S")
+    pu_time_obj_formatted = pu_time_obj.strftime("%I:%M %p")
+    
+    return render_template('order_confirm.html', order=order_info, time=pu_time_obj_formatted)
