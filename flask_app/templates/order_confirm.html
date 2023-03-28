@@ -1,6 +1,41 @@
 {% extends "./base.html" %}
 {% block base %}
-<h1>ORDER CONFIRMATION</h1>
+
+<div class="container rounded w-50 my-5 p-4 bg-light shadow">
+    <h1 class="text-center text-success mb-5">Order Placed!</h1>
+    <h3 class="text-center mb-5">Thank you for your order 😍</h3>
+    <div class="alert alert-success text-center w-75 mx-auto">Order number {{order.id}} will be ready for pickup at <span class="fw-bold">{{time}}</span>.</div>
+    <div>
+        <div class="d-flex align-items-between flex-column bg-light rounded p-4 w-75 mx-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="w-50">Sub</th>
+                        <th class="w-25">Qty</th>
+                        <th class="w-25">Price</th>
+                        <th class="w-25">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for each in order.order_items %}
+                        <tr>
+                            <td>{{each.sub['name']}}</td>
+                            <td>{{each.quantity}}</td>
+                            <td>{{"$%.2f"|format(each.sub['price'])}} ea</td>
+                            <td>{{"$%.2f"|format(each.sub['price'] * each.quantity)}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table bg-success text-light rounded">
+                <tr>
+                    <th>Total</th>
+                    <td class="text-end pe-4 fw-bold">{{"$%.2f"|format(order.price)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
 <!-- FOOTER -->
 <div class="bg-success border-top border-warning border-3" style="width: 100%; height: 50px;"></div>
