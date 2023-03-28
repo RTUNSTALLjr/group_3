@@ -23,17 +23,17 @@ class Order_Items:
 
     @classmethod
     def get_all_orders(cls,data):
-        query ="SELECT * FROM orders"
+        query = "SELECT * FROM orders;"
         return connectToMySQL(db).query_db(query,data)
 
 
     @classmethod
     def get_order_by_id(cls,data):
-        query="""
+        query = """
         SELECT * FROM orders O 
         LEFT JOIN order_items OI ON O.id = OI.order_id
         LEFT JOIN subs S ON OI.sub_id = S.id
-        WHERE O.id = %(id)s
+        WHERE O.id = %(id)s;
         """
         results= connectToMySQL(db).query_db(query,data)
         order_object =  Orders (results[0])
