@@ -96,6 +96,7 @@ def create_order():
         temp = session["user_id"]
         session.clear()
         session["user_id"] = temp
+    session.clear()
     return redirect(f'/confirmation/{order_id}')
 
 @app.route('/confirmation/<order_id>')
