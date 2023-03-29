@@ -124,9 +124,10 @@ def update_sub(id):
         session["sauce"] = request.form["sauce"]
         return redirect(f'/edit_sub/{id}')
     
-@app.route("/delete_sub/<int:id>")
-def delete_sub(id):
+@app.route("/delete_sub/<int:id>/<name>")
+def delete_sub(id, name):
     if "user_id" in session and session['user_id'] == 1:
+        cloudinary.api.delete_resources([name])
         sub.Sub.delete_sub({"id": id})
         return redirect("/menu")
     return redirect("/")
