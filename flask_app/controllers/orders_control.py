@@ -80,6 +80,9 @@ def create_order():
     }
     if 'user_id' in session:
         order_data['user_id'] = session["user_id"]
+        subtotal = session["subtotal"]
+        subtotal -= subtotal/10
+        order_data['price'] = round(subtotal,2)
     
     order_id = order.Orders.insert_order(order_data)
     order_data["order_id"] = order_id
@@ -96,7 +99,8 @@ def create_order():
         temp = session["user_id"]
         session.clear()
         session["user_id"] = temp
-    session.clear()
+    else:
+        session.clear()
     return redirect(f'/confirmation/{order_id}')
 
 @app.route('/confirmation/<order_id>')

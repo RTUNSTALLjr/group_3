@@ -1,5 +1,7 @@
 # Sub-Urban Sub Shop
 
+![alt text](/flask_app/static/images/subUrban.gif "Sub-Urban Sub Shop")
+
 ## Overview
 This app was created by a team of full-stack developers, as a group project during the Coding Dojo bootcamp. The application meets the following criteria, which demonstrate comprehension of core full-stack competencies:
 * User login and registration

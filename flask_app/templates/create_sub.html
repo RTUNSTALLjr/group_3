@@ -95,7 +95,7 @@
                     {% if "bread" in session %}
                         <input type="text" name="bread" class="form-control" value="{{session['bread']}}">
                     {% else %}
-                        <input type="text" name="bread" class="form-control">
+                        <input type="text" name="bread" placeholder="None" class="form-control">
                     {% endif %}
                     {% with messages = get_flashed_messages(category_filter = ["bread"]) %}
                         {% if messages %}
